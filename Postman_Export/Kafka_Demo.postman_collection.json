@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "c0ef6283-773e-4cc0-9aa9-78607204eeda",
+		"name": "Kafka_Demo",
+		"description": "This is for Kafka Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Kafka String Message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/kafka/publishMsg?message=kafkaMsg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"kafka",
+						"publishMsg"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "kafkaMsg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kafka JSON Person",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"John\",\n    \"age\":50,\n    \"gender\":\"Male\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/kafka/publishPerson",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"kafka",
+						"publishPerson"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kafka Avro User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"John\",\n    \"age\":50\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/kafka/publishUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"kafka",
+						"publishUser"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
