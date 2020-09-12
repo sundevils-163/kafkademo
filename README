@@ -1,0 +1,9 @@
+1. Download Confluent Platform from confluent.io (Only works for Mac or Linux)
+2. Select "Manual Deployment" for Deployment Type
+3. Pick whatever format you like.
+4. Uncompress into an installation location of your choice
+5. Set the environment variable "CONFLUENT_HOME" to your installation location
+6. Add $CONFLUENT_HOM/bin to your unix $PATH
+7. Start confluent using command "confluent local start"
+8. Once all up, launch brower and go to "localhost:9092"
+
