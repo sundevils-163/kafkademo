@@ -3,7 +3,19 @@
 3. Pick whatever format you like.
 4. Uncompress into an installation location of your choice
 5. Set the environment variable "CONFLUENT_HOME" to your installation location
-6. Add $CONFLUENT_HOM/bin to your unix $PATH
+6. Add $CONFLUENT_HOME/bin to your unix $PATH
 7. Start confluent using command "confluent local start"
 8. Once all up, launch brower and go to "localhost:9092"
+9. run the demo Sprint boot application (java -jar <jarfile>)
+10. run postman to publish some messages, person (JSON) and user (AVRO)
+
+Play with streams and tables using ksql CLI tools:
+1. run command "ksql http://localhost:8088"
+2. > SET 'auto.offset.reset'='earliest';
+3. > print 'user';
+4. > CREATE STREAM ksql_user_events WITH (KAFKA_TOPIC='user', VALUE_FORMAT='AVRO');
+5. > show streams;
+6. > create table ksql_user_table with (kafka_topic='user', value_format='avro');
+7. > show tables;
+To see the difference between streams and tables.
 
