@@ -5,7 +5,7 @@
 5. Set the environment variable "CONFLUENT_HOME" to your installation location
 6. Add $CONFLUENT_HOME/bin to your unix $PATH
 7. Start confluent using command "confluent local start"
-8. Once all up, launch brower and go to "localhost:9092"
+8. Once all up, launch brower and go to "localhost:9021"
 9. run the demo Sprint boot application (java -jar <jarfile>)
 10. run postman to publish some messages, person (JSON) and user (AVRO)
 
