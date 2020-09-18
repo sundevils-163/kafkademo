@@ -7,44 +7,44 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import com.rainston.kafkaDemo.models.Person;
-import com.rainston.kafkaDemo.models.User;
+import com.rainston.kafkaDemo.models.Offer;
+import com.rainston.kafkaDemo.models.OfferGroup;
 
 @Service
 public class Producer {
 
 	private static final Logger logger = LoggerFactory.getLogger(Producer.class);
 	
-	@Value(value = "${users.topic.name}")
-	private String userTopicName;
+	@Value(value = "${message.topic.name}")
+	private String messageTopicName;
 
-	@Value(value = "${user.topic.name}")
-	private String user1TopicName;
+	@Value(value = "${offer.topic.name}")
+	private String offerTopicName;
 
-	@Value(value = "${person.topic.name}")
-	private String personTopicName;
+	@Value(value = "${offergroup.topic.name}")
+	private String offerGroupTopicName;
 	
 	@Autowired
 	private KafkaTemplate<String, String> kafkaTemplate;
 
 	@Autowired
-	private KafkaTemplate<String, Person> kafkaPersonTemplate;
+	private KafkaTemplate<Integer, Offer> kafkaOfferTemplate;
 
 	@Autowired
-	private KafkaTemplate<String, User> kafkaUserTemplate;
+	private KafkaTemplate<Integer, OfferGroup> kafkaOfferGroupTemplate;
 	
 	public void sendMessage(String message) {
 		logger.info(String.format("### -> Producing message %s", message));
-		this.kafkaTemplate.send(userTopicName, message);
+		this.kafkaTemplate.send(messageTopicName, message);
 	}
 
-	public void sendPerson(Person person) {
-		logger.info("### -> Producing message " + person);
-		this.kafkaPersonTemplate.send(personTopicName, person.getName(), person);
+	public void sendOffer(Offer offer) {
+		logger.info("### -> Producing Offer " + offer);
+		this.kafkaOfferTemplate.send(offerTopicName, offer.getOfferId(), offer);
 	}
 
-	public void sendUser(User user) {
-		logger.info("### -> Producing message " + user);
-		this.kafkaUserTemplate.send(user1TopicName, user.getName(), user);
+	public void sendOfferGroup(OfferGroup offerGroup) {
+		logger.info("### -> Producing Offer Group " + offerGroup);
+		this.kafkaOfferGroupTemplate.send(offerGroupTopicName, offerGroup.getOfferGroupId(), offerGroup);
 	}
 }

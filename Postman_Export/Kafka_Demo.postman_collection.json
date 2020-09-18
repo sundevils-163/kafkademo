@@ -33,22 +33,22 @@
 			"response": []
 		},
 		{
-			"name": "Kafka JSON Person",
+			"name": "Kafka AVRO Offer",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"John\",\n    \"age\":50,\n    \"gender\":\"Male\"\n}"
+					"raw": "{\n    \"offer_id\":1,\n    \"offer_group_id\":1,\n    \"offer_status\":\"ENTERED\",\n    \"comments\":\"This is the first offer\",\n    \"loan_amount\":200000.00\n}"
 				},
 				"url": {
-					"raw": "http://localhost:9000/kafka/publishPerson",
+					"raw": "http://localhost:9000/kafka/publishOffer",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -56,14 +56,14 @@
 					"port": "9000",
 					"path": [
 						"kafka",
-						"publishPerson"
+						"publishOffer"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Kafka Avro User",
+			"name": "Kafka Avro OfferGroup",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -75,10 +75,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"John\",\n    \"age\":50\n}"
+					"raw": "{\n    \"offer_group_id\":1,\n    \"offer_type\":\"LOAN\",\n    \"offer_group_status\":\"OPEN\",\n    \"file_name\":\"myloan.csv\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:9000/kafka/publishUser",
+					"raw": "http://localhost:9000/kafka/publishOfferGroup",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -86,7 +86,7 @@
 					"port": "9000",
 					"path": [
 						"kafka",
-						"publishUser"
+						"publishOfferGroup"
 					]
 				}
 			},

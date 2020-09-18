@@ -16,14 +16,14 @@ public class KafkaTopicConfig {
 	@Value(value = "${kafka.bootstrapAddress}")
 	private String bootstrapAddress;
 	
-	@Value(value = "${users.topic.name}")
-	private String userTopicName;
+	@Value(value = "${message.topic.name}")
+	private String messageTopicName;
 
-	@Value(value = "${user.topic.name}")
-	private String user1TopicName;
+	@Value(value = "${offer.topic.name}")
+	private String offerTopicName;
 	
-	@Value(value = "${person.topic.name}")
-	private String personTopicName;
+	@Value(value = "${offergroup.topic.name}")
+	private String offerGroupTopicName;
 	
 	@Value("${topic.partitions-num}")
 	private Integer partitions;
@@ -39,16 +39,16 @@ public class KafkaTopicConfig {
 	
 	@Bean
 	public NewTopic topicUsers() {
-		return new NewTopic(userTopicName, partitions, (short)1);
+		return new NewTopic(messageTopicName, partitions, (short)1);
 	}
 
 	@Bean
-	public NewTopic topicPerson() {
-		return new NewTopic(personTopicName, partitions, (short)1);
+	public NewTopic topicOffer() {
+		return new NewTopic(offerTopicName, partitions, (short)1);
 	}
 
 	@Bean
-	public NewTopic topicUser() {
-		return new NewTopic(user1TopicName, partitions, (short)1);
+	public NewTopic topicOfferGroup() {
+		return new NewTopic(offerGroupTopicName, partitions, (short)1);
 	}
 }

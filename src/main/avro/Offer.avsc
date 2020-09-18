@@ -1,0 +1,38 @@
+{
+  "namespace": "com.rainston.kafkaDemo.models",
+  "type": "record",
+  "name": "Offer",
+  "fields": [
+    {
+      "name": "offer_id",
+      "type": "int"
+    },
+    {
+      "name": "offer_group_id",
+      "type": "int"
+    },
+    {
+      "name": "offer_status",
+      "type": {
+        "name": "offer_status_enum",
+        "type": "enum",
+        "symbols": [
+          "ENTERED",
+          "OPEN",
+          "REJECTED",
+          "ACCEPTED",
+          "EXPIRED"
+        ]
+      }
+    },
+    {
+      "name": "comments",
+      "type": "string",
+      "avro.java.string": "String"
+    },
+    {
+      "name": "loan_amount",
+      "type": "double"
+    }
+  ]
+}

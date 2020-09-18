@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,10 +13,9 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
 
-import com.rainston.kafkaDemo.models.Person;
-import com.rainston.kafkaDemo.models.User;
+import com.rainston.kafkaDemo.models.Offer;
+import com.rainston.kafkaDemo.models.OfferGroup;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
@@ -43,42 +43,43 @@ public class KafkaConsumerConfig {
 		public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
 			ConcurrentKafkaListenerContainerFactory<String, String> factory =
 					new ConcurrentKafkaListenerContainerFactory<>();
-			factory.setConsumerFactory(consumerFactory("users_group"));
+			factory.setConsumerFactory(consumerFactory("message_group"));
 			return factory;
 		}
 		
-		public ConsumerFactory<String, User> userConsumerFactory() {
+		public ConsumerFactory<Integer, Offer> offerConsumerFactory() {
 	        Map<String, Object> props = new HashMap<>();
 	        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
 	        props.put(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryUrl);
 	        //props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
-	        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+	        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
 	        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
-	        props.put(ConsumerConfig.GROUP_ID_CONFIG, "user_group");
+	        props.put(ConsumerConfig.GROUP_ID_CONFIG, "offer_group");
 	        return new DefaultKafkaConsumerFactory<>(props);
 	    }
 
 	    @Bean
-	    public ConcurrentKafkaListenerContainerFactory<String, User> userKafkaListenerContainerFactory() {
-	        ConcurrentKafkaListenerContainerFactory<String, User> factory = new ConcurrentKafkaListenerContainerFactory<>();
-	        factory.setConsumerFactory(userConsumerFactory());
+	    public ConcurrentKafkaListenerContainerFactory<Integer, Offer> offerKafkaListenerContainerFactory() {
+	        ConcurrentKafkaListenerContainerFactory<Integer, Offer> factory = new ConcurrentKafkaListenerContainerFactory<>();
+	        factory.setConsumerFactory(offerConsumerFactory());
 	        return factory;
 	    }
 
-	    public ConsumerFactory<String, Person> personConsumerFactory() {
+	    public ConsumerFactory<Integer, OfferGroup> offerGroupConsumerFactory() {
 	        Map<String, Object> props = new HashMap<>();
 	        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-	        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-	        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-	        props.put(JsonDeserializer.TRUSTED_PACKAGES, "com.rainston.kafkaDemo.models");
-	        props.put(ConsumerConfig.GROUP_ID_CONFIG, "person_group");
+	        props.put(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryUrl);
+	        //props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
+	        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
+	        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
+	        props.put(ConsumerConfig.GROUP_ID_CONFIG, "offergroup_group");
 	        return new DefaultKafkaConsumerFactory<>(props);
 	    }
 
 	    @Bean
-	    public ConcurrentKafkaListenerContainerFactory<String, Person> personKafkaListenerContainerFactory() {
-	        ConcurrentKafkaListenerContainerFactory<String, Person> factory = new ConcurrentKafkaListenerContainerFactory<>();
-	        factory.setConsumerFactory(personConsumerFactory());
+	    public ConcurrentKafkaListenerContainerFactory<Integer, OfferGroup> offerGroupKafkaListenerContainerFactory() {
+	        ConcurrentKafkaListenerContainerFactory<Integer, OfferGroup> factory = new ConcurrentKafkaListenerContainerFactory<>();
+	        factory.setConsumerFactory(offerGroupConsumerFactory());
 	        return factory;
 	    }
 }
